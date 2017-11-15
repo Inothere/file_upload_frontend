@@ -62,26 +62,13 @@
     methods: {
       login: function() {
         let self = this;
-        this.axios({
-          method: 'POST',
-          url: 'http://127.0.0.1:5000/login',
-          data: {
-            username: self.account.username,
-            password: self.account.password,
-            region: self.account.region
-          },
-          headers: {
-            'Content-type': 'application/json'
-          }
-        }).then((resp)=>{
-          self.loginMsg = '';
-          JWTStorage.setJWT(resp.data.access_token);
+        this.$store.dispatch('login', self.account).then(resp=>{
           self.$router.push({
             path: '/'
           })
-        }, (resp)=>{
+        }, resp=>{
           self.loginMsg = '登录失败，用户名或密码错误'
-        });
+        })
       },
       handleSubmit: function(name) {
         let self = this;

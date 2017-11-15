@@ -16,31 +16,18 @@
         })
       },
       checkAuth: function() {
-        var self = this,
-          jwt = JWTStorage.JWT;
-        if (!jwt) {
-          self.login()
-          return
+        if (!this.isLogin) {
+          this.login();
         }
-        self.axios({
-          method: 'POST',
-          url: 'http://127.0.0.1:5000/api/v1/check_auth',
-          headers: {
-            'Authorization': JWTStorage.prefix + ' ' + JWTStorage.JWT
-          }
-        }).then(function(resp){
-          console.log('ok')
-          self.$router.push({
-            path: '/'
-          })
-        }, function(resp) {
-          console.log('error')
-          self.login()
-        })
       }
     },
     created: function() {
       this.checkAuth();
+    },
+    computed: {
+      isLogin() {
+        return this.$store.getters.isLogin;
+      }
     },
     components: {TaskBar}
   }

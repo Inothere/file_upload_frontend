@@ -35,19 +35,5 @@
 
 <style>
   /* CSS */
-  html {
-    min-height: 100%;
-    height: 100%;
-  }
-  body{
-    min-height: 100%;
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
-    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-  }
-  #app {
-    height: 100%;
-    position: relative;
-  }
+  @import '~@/assets/css/main.css' /* ~ 符号告诉webpack, @ 符号代表一个模块（即 alias）, 不加的话，将会作为普通css语句处理，导致错误*/
 </style>

@@ -15,9 +15,10 @@
             </Select>
           </FormItem>
           <Row>
-            <Button type="success" @click="handleSubmit('loginForm')" long>登录</Button>
+            <Button type="success" v-if="!pending" @click="handleSubmit('loginForm')" long>登录</Button>
+            <Button type="success" v-if="pending" long><i class="fa fa-spin fa-spinner"></i></Button>
           </Row>
-          <div v-if="loginMsg" style="color:red;">{{loginMsg}}</div>
+          <div v-if="loginMsg && !pending" style="color:red;">{{loginMsg}}</div>
         </Form>
       </Card>
     </Row>
@@ -74,18 +75,23 @@
         let self = this;
         this.$refs[name].validate((valid) => {
           if (valid) {
-            self.login();
+            this.login();
           }
         })
       }
     },
     created: function() {
       
+    },
+    computed: {
+      pending() {
+        return this.$store.getters.pending;
+      }
     }
   }
 </script>
 
-<style>
+<style scoped>
   .scrollable {
     overflow: auto;
     height: 100%;

@@ -54,7 +54,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .task-bar {
     width: 100%;
     display: flex;

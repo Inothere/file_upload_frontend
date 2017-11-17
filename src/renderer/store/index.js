@@ -1,5 +1,11 @@
 import axios from 'axios'
-const store = {
+import Vuex from 'vuex'
+import Vue from 'vue'
+
+Vue.use(Vuex)
+
+const store_obj = {
+  strict: process.env.NODE_ENV !== 'production',
   state: {
     isLogin: !!sessionStorage.getItem('token'),
     pending: false
@@ -14,6 +20,7 @@ const store = {
     },
     logout(state) {
       state.isLogin = false;
+      state.pending = false;
     }
   },
   actions: {
@@ -47,8 +54,9 @@ const store = {
     }
   },
   getters: {
-    isLogin: state => state.isLogin
+    isLogin: state => state.isLogin,
+    pending: state => state.pending
   }
 }
-
+const store = new Vuex.Store(store_obj)
 export default store
